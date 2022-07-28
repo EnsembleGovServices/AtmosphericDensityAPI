@@ -1,7 +1,7 @@
 site_name: Atmospheric Density API
 
 nav:
-    - Home: CITPe.md
-    - CITPe: CITPe.md
+    - Home: CTIPe.md
+    - CTIPe: CTIPe.md
 
 theme: readthedocs
