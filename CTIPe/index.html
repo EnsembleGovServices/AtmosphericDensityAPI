@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>CTIPe - Atmospheric Density API</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "CTIPe";
+        var mkdocs_page_input_path = "CTIPe.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <script src="../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> Atmospheric Density API
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="./">Home</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">CTIPe</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#list-files">List Files</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#download-files">Download Files</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">Atmospheric Density API</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>CTIPe</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="base-endpoint">Base endpoint:</h1>
+<pre><code>https://32wm1ggs0a.execute-api.us-east-1.amazonaws.com/v1
+</code></pre>
+<h2 id="list-files">List Files</h2>
+<p>Endpoint: <code>/{bucket}</code></p>
+<p>Request Methods: <code>GET</code></p>
+<p>Headers: <code>"X-API-Key"</code> : <code>API_KEYS</code></p>
+<p>Example <strong>URL</strong>:</p>
+<pre><code>https://32wm1ggs0a.execute-api.us-east-1.amazonaws.com/v1/ctipe-data
+</code></pre>
+<p>Example <strong>Response</strong>: </p>
+<pre><code class="language-yaml">{
+    &quot;start&quot;: 1,
+    &quot;limit&quot;: 10,
+    &quot;count&quot;: 999,
+    &quot;previous&quot;: &quot;&quot;,
+    &quot;next&quot;: &quot;?start=11&amp;limit=10&quot;,
+    &quot;data&quot;: [
+        &quot;CTIPE_RHO_GEO_2022-05-13T00:10:00.parquet&quot;,
+        &quot;CTIPE_RHO_GEO_2022-05-13T00:20:00.parquet&quot;,
+        &quot;CTIPE_RHO_GEO_2022-05-13T00:30:00.parquet&quot;,
+        &quot;CTIPE_RHO_GEO_2022-05-13T00:40:00.parquet&quot;,
+        &quot;CTIPE_RHO_GEO_2022-05-13T00:50:00.parquet&quot;,
+        &quot;CTIPE_RHO_GEO_2022-05-13T01:00:00.parquet&quot;,
+        &quot;CTIPE_RHO_GEO_2022-05-13T01:10:00.parquet&quot;,
+        &quot;CTIPE_RHO_GEO_2022-05-13T01:20:00.parquet&quot;,
+        &quot;CTIPE_RHO_GEO_2022-05-13T01:30:00.parquet&quot;,
+        &quot;CTIPE_RHO_GEO_2022-05-13T01:40:00.parquet&quot;
+    ]
+}
+</code></pre>
+<ul>
+<li>Pass <strong>next</strong> or <strong>previous</strong> in the query to see the next files lists </li>
+</ul>
+<p>Example:</p>
+<pre><code> https://32wm1ggs0a.execute-api.us-east-1.amazonaws.com/v1/ctipe-data?start=11&amp;limit=10
+</code></pre>
+<pre><code class="language-python">import requests
+
+headers = {'X-API-Key': 'API_KEY_HERE'}
+
+request_url = 'https://32wm1ggs0a.execute-api.us-east-1.amazonaws.com/v1/ctipe-data'
+
+response = requests.get(request_url, headers=headers)
+
+print(response.json())
+</code></pre>
+<h2 id="download-files">Download Files</h2>
+<p>Endpoint: <code>/{bucket}/{file}</code></p>
+<p>Request Methods: <code>GET</code></p>
+<p>Headers: <code>"X-API-Key"</code> : <code>API_KEYS</code></p>
+<p>Example <strong>URL</strong>: </p>
+<pre><code>https://32wm1ggs0a.execute-api.us-east-1.amazonaws.com/v1/ctipe-data/CTIPE_RHO_GEO_2022-05-13T00:10:00.parquet
+</code></pre>
+<p>Example <strong>Response</strong>:  This will download the file</p>
+<pre><code class="language-python">import requests
+
+headers = {'X-API-Key': 'API_KEY_HERE'}
+
+request_url = 'https://32wm1ggs0a.execute-api.us-east-1.amazonaws.com/v1/ctipe-data/CTIPE_RHO_GEO_2022-05-13T00:10:00.parquet'
+
+response = requests.get(request_url, headers=headers)
+
+with open('CTIPE_RHO_GEO_2022-05-13T00:10:00.parquet', 'wb') as file:
+    file.write(response.content)
+</code></pre>
+<ul>
+<li>This will download the file from <strong>S3</strong> and store it in your local.</li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="./" class="btn btn-neutral float-left" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="./" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
