@@ -1,4 +1,4 @@
-# CTIPe
+# Atmospheric Density API
 
 ## About this API
 
@@ -14,14 +14,6 @@ Ensemble’s Atmospheric Density API delivers data files representing a continuo
 
 The API converts raw model output to partial pressure using [Kamodo’s function composition and coordinate transformation space physics-as-a-service Analysis Suite.](https://ccmc.gsfc.nasa.gov/Kamodo/)
 
-Here’s how:
-
-  * **Step 1**. For a given time stamp, we interpolate density as a function of longitude, latitude, partial pressure: rho(lon, lat, ilev).
-  * **Step 2**. We then compute the altitude as a function of partial pressure and fit a piecewise cubic hermite interpolating polynomial to the result: alt(ilev)
-  * **Step 3**. For each altitude in the geographic output grid,  we compute the corresponding pressure from the roots of the function obtained in Step 2: ilev(alt)
-  * **Step 4**. Next, we assemble the results from step 3 into a regular grid, so that partial pressure (ilev) is now a function of longitude, latitude, altitude: ilev(lon, lat, alt)
-  * **Step 5**. Finally, we compose the density function from Step 1 with the partial pressure function from Step 4: rho(lon, lat, ilev(lon, lat, alt)) = rho(lon, lat, alt).
-  * **Step 6**. Evaluate density at every point on the geographic output grid. rho(lon, lat, alt)
 
 ## Authentication
 
