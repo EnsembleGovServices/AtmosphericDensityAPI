@@ -12,7 +12,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "CTIPe";
+        var mkdocs_page_name = "Atmospheric Density API";
         var mkdocs_page_input_path = "index.md";
         var mkdocs_page_url = null;
       </script>
@@ -61,7 +61,7 @@
       <div class="wy-nav-content">
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
-    <li><a href="." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>CTIPe</li>
+    <li><a href="." class="icon icon-home" alt="Docs"></a> &raquo;</li><li>Atmospheric Density API</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -71,7 +71,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
             <div class="section" itemprop="articleBody">
               
-                <h1 id="ctipe">CTIPe</h1>
+                <h1 id="atmospheric-density-api">Atmospheric Density API</h1>
 <h2 id="about-this-api">About this API</h2>
 <p>Ensemble’s Atmospheric Density API delivers data files representing a continuously updated nowcast of Earth’s total atmospheric density, generating a nowcast file every 10 minutes.</p>
 <ul>
@@ -86,15 +86,6 @@
 <li>The API uses NOAA’s Coupled Thermosphere Ionosphere Plasmasphere Electrodynamics Model (CTIPe) currently hosted on the Integrated Space Weather Framework (ISWA) within the <strong>Architecture for Collaborative Evaluation (ACE) compute</strong> environment</li>
 </ul>
 <p>The API converts raw model output to partial pressure using <a href="https://ccmc.gsfc.nasa.gov/Kamodo/">Kamodo’s function composition and coordinate transformation space physics-as-a-service Analysis Suite.</a></p>
-<p>Here’s how:</p>
-<ul>
-<li><strong>Step 1</strong>. For a given time stamp, we interpolate density as a function of longitude, latitude, partial pressure: rho(lon, lat, ilev).</li>
-<li><strong>Step 2</strong>. We then compute the altitude as a function of partial pressure and fit a piecewise cubic hermite interpolating polynomial to the result: alt(ilev)</li>
-<li><strong>Step 3</strong>. For each altitude in the geographic output grid,  we compute the corresponding pressure from the roots of the function obtained in Step 2: ilev(alt)</li>
-<li><strong>Step 4</strong>. Next, we assemble the results from step 3 into a regular grid, so that partial pressure (ilev) is now a function of longitude, latitude, altitude: ilev(lon, lat, alt)</li>
-<li><strong>Step 5</strong>. Finally, we compose the density function from Step 1 with the partial pressure function from Step 4: rho(lon, lat, ilev(lon, lat, alt)) = rho(lon, lat, alt).</li>
-<li><strong>Step 6</strong>. Evaluate density at every point on the geographic output grid. rho(lon, lat, alt)</li>
-</ul>
 <h2 id="authentication">Authentication</h2>
 <p>To use the endpoint you need to authenticate your self via passing the api-key in header showing below. To get the api-key mail us at <a href="mailto:ogerland@ensembleconsultancy.com"><strong>ogerland@ensembleconsultancy.com</strong></a>.</p>
 <h2 id="data-access">Data Access</h2>
@@ -232,5 +223,5 @@ with open('CTIPE_RHO_GEO_2022-05-13T00:10:00.parquet', 'wb') as file:
 
 <!--
 MkDocs version : 1.3.0
-Build Date UTC : 2022-08-03 12:54:40.512481+00:00
+Build Date UTC : 2022-08-04 07:08:01.101629+00:00
 -->
