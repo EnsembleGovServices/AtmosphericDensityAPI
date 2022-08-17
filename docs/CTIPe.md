@@ -11,6 +11,7 @@ Ensemble’s Atmospheric Density API delivers data files representing a continuo
     * Example output grid: (rho(lon, lat, alt)
     * The filename includes the date and time in ISO format.
 * The API uses NOAA’s Coupled Thermosphere Ionosphere Plasmasphere Electrodynamics Model (CTIPe) currently hosted on the Integrated Space Weather Framework (ISWA) within the **Architecture for Collaborative Evaluation (ACE) compute** environment
+* The API retains the previous 5 days worth of data, but will automatically delete data files after that time frame
 
 The API converts raw model output to partial pressure using [Kamodo’s function composition and coordinate transformation space physics-as-a-service Analysis Suite.](https://ccmc.gsfc.nasa.gov/Kamodo/)
 
