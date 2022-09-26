@@ -1,0 +1,23 @@
+version: "3.7"
+# version: '2.4'
+
+services:
+  ctipe:
+    build:
+      context: .
+    image: ctipe
+    volumes:
+      - type: bind
+        source: ${PWD}
+        target: /ctipe
+    ports:
+      - "8888:8888"
+    command:
+      - jupyter
+      - notebook
+      - /ctipe
+      - --port=8888
+      - --no-browser
+      - --ip=0.0.0.0
+      - --allow-root
+
