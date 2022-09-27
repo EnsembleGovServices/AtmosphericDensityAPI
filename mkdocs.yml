@@ -3,5 +3,6 @@ site_name: Atmospheric Density API
 nav:
     - Home: CTIPe.md
     - CTIPe: CTIPe.md
+    - Loading: loading.md
 
 theme: readthedocs
