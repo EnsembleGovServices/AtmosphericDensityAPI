@@ -20,4 +20,6 @@ services:
       - --no-browser
       - --ip=0.0.0.0
       - --allow-root
-
+    environment:
+      ENSEMBLE_API_ENDPOINT: ${ENSEMBLE_API_ENDPOINT}
+      ENSEMBLE_API_KEY: ${ENSEMBLE_API_KEY}

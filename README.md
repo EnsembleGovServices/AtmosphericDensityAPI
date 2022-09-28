@@ -51,27 +51,67 @@ atmosphericdensityapi-ctipe-1  | [C 18:47:30.220 NotebookApp]
 
 Navigate to http://localhost:8888 and copy and paste the printed token (after the `?token=`) into the welcome screen. Click on `README.md` to open this file as a jupyter notebook. You should then be able to execute the following cells.
 
+
+## Data retrieval
+
+You may access the data from python using an API key provided by Ensmble LTD (email ogerland@ensembleconsultancy.com).
+
+<!-- #region -->
+Once received, save these credentials in a `.env` file colated with this repository and having the contents:
+
+```bash
+ENSEMBLE_API_ENDPOINT=https://32wm1ggs0a.execute-api.us-east-1.amazonaws.com/v1/ctipe-data
+ENSEMBLE_API_KEY=my_api_key # replace my_api_key with your API key
+```
+<!-- #endregion -->
+
+If you used `docker compose up ctipe`, the above variables should be available to the container, which we can verify with the following code block:
+
 ```python
-ls CTIPE_DATA
+import os
+
+assert 'ENSEMBLE_API_ENDPOINT' in os.environ #checking that api access info is present
+assert 'ENSEMBLE_API_KEY' in os.environ
+```
+
+```python
+import requests
+
+headers = {'X-API-Key': os.environ['ENSEMBLE_API_KEY']}
+
+request_url = os.environ['ENSEMBLE_API_ENDPOINT'] # https://32wm1ggs0a.execute-api.us-east-1.amazonaws.com/v1/ctipe-data
+
+response = requests.get(request_url, headers=headers)
+```
+
+Now retrieve the most recent file name
+
+```python
+recent_fname = response.json()['data'][0]
+recent_fname
+```
+
+Download the corresponding file
+
+```python
+import requests
+
+headers = {'X-API-Key': os.environ['ENSEMBLE_API_KEY']}
+
+request_url = f"{os.environ['ENSEMBLE_API_ENDPOINT']}/{recent_fname}"
+
+response = requests.get(request_url, headers=headers)
+
+with open(f"CTIPE_DATA/{recent_fname}", 'wb') as file:
+    file.write(response.content)
 ```
 
 The above file contains sample output from for a specific time and in geographic coordinates. Open the file with `fastparquet`, which comes preinstalled with this docker container.
 
 ```python
-str_date_time = '2022-05-02T00:00:00'
-```
-
-```python
-fname = f"CTIPE_DATA/CTIPE_RHO_GEO_{str_date_time}.parquet"
-```
-
-
-CTIPE_RHO_GEO_2022-05-02T00:00:00.parquet
-
-```python
 from fastparquet import ParquetFile
-fname = 'CTIPE_DATA/CTIPE_RHO_GEO_2022-05-02T00:00:00.parquet'
-pf = ParquetFile(fname)
+
+pf = ParquetFile(f"CTIPE_DATA/{recent_fname}")
 df = pf.to_pandas()
 ```
 
